@@ -14,7 +14,7 @@ import (
 )
 
 func officialWordle(c *cli.Context) error {
-	fmt.Println(helper.CheckAccuracy("hello", "aeipe"))
+	fmt.Println(helper.CheckAccuracy("hello", "heaaa"))
 	return nil
 }
 func playGame(c *cli.Context) error {

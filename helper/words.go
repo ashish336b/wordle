@@ -9,30 +9,31 @@ import (
 
 var Words = []string{"Quick", "Brown", "hello", "arose", "vivid"}
 
-func Check() string {
-	a := lipgloss.NewStyle().
-		Bold(true).
-		Background(lipgloss.Color("#14c700")).
-		Render("a")
-	b := lipgloss.NewStyle().
-		Bold(true).
-		Background(lipgloss.Color("#14c700")).
-		Render("b")
-	fmt.Println(a + b)
-	return "hello"
+func Check(a string, b string) string {
+	var str = lipgloss.NewStyle().
+		BorderStyle(lipgloss.NormalBorder()).
+		BorderLeft(true).
+		BorderForeground(lipgloss.Color("#b673fa")).Render("h")
+	fmt.Print(str)
+	return str
 }
 func CheckAccuracy(solution string, guessed string) string {
 	solutionWordArr := strings.Split(solution, "")
 	guessedWordArr := strings.Split(guessed, "")
 	finalWord := ""
 	style := lipgloss.NewStyle().
-		Bold(true).PaddingLeft(1)
+		Bold(true).
+		BorderLeft(true).
+		BorderRight(true).
+		BorderForeground(lipgloss.Color("63")).
+		BorderStyle(lipgloss.NormalBorder()).
+		PaddingLeft(2).
+		PaddingRight(2)
 	for i, value := range solutionWordArr {
 		if guessedWordArr[i] == value {
 			finalWord += style.
 				Foreground(lipgloss.Color("#14c700")).
 				Render(value)
-			// finalWord += lipgloss.PlaceHorizontal(10, lipgloss.Center, " ")
 		}
 		if guessedWordArr[i] != value && include(guessedWordArr[i], solutionWordArr) {
 			finalWord += style.
@@ -42,22 +43,11 @@ func CheckAccuracy(solution string, guessed string) string {
 		}
 		if !include(guessedWordArr[i], solutionWordArr) {
 			finalWord += style.Render(guessedWordArr[i])
-			// finalWord += lipgloss.PlaceHorizontal(10, lipgloss.Center, " ")
 		}
 	}
-	return lipgloss.
-		NewStyle().
-		Padding(1).
-		Border(lipgloss.Border{
-			Top:         "._.:*:",
-			Bottom:      "._.:*:",
-			Left:        "|*",
-			Right:       "|*",
-			TopLeft:     "*",
-			TopRight:    "*",
-			BottomLeft:  "*",
-			BottomRight: "*",
-		}).
+	return lipgloss.NewStyle().
+		Margin(2).
+		MarginLeft(5).
 		Render(finalWord)
 }
 
