@@ -9,10 +9,15 @@ import (
 	"time"
 
 	"github.com/ashish336b/wordle-in-terminal/helper"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/fatih/color"
 	"github.com/urfave/cli/v2"
 )
 
+func officialWordle(c *cli.Context) error {
+	fmt.Println("official wordle")
+	return nil
+}
 func playGame(c *cli.Context) error {
 	rand.Seed(time.Now().UnixNano())
 	solutionIndex := rand.Intn(len(helper.Words))
@@ -38,6 +43,16 @@ func playGame(c *cli.Context) error {
 	return nil
 }
 func main() {
+	var style = lipgloss.NewStyle().
+		Bold(true).
+		Foreground(lipgloss.Color("#FAFAFA")).
+		PaddingBottom(2).
+		PaddingRight(2).
+		PaddingTop(2).
+		PaddingLeft(2).
+		Width(22)
+	fmt.Println(style.Render("hello world"))
+	return
 	err := (&cli.App{
 		Name:   "wordle-go",
 		Usage:  "wordle-in-terminal",
@@ -47,10 +62,7 @@ func main() {
 				Name:    "play",
 				Aliases: []string{"p"},
 				Usage:   "play the game",
-				Action: func(c *cli.Context) error {
-					fmt.Println("hello world")
-					return nil
-				},
+				Action:  officialWordle,
 			},
 		},
 	}).Run(os.Args)
