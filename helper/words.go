@@ -26,25 +26,39 @@ func CheckAccuracy(solution string, guessed string) string {
 	guessedWordArr := strings.Split(guessed, "")
 	finalWord := ""
 	style := lipgloss.NewStyle().
-		Bold(true).
-		Inline(true).
-		Padding(1)
+		Bold(true).PaddingLeft(1)
 	for i, value := range solutionWordArr {
 		if guessedWordArr[i] == value {
 			finalWord += style.
-				Background(lipgloss.Color("#14c700")).
+				Foreground(lipgloss.Color("#14c700")).
 				Render(value)
+			// finalWord += lipgloss.PlaceHorizontal(10, lipgloss.Center, " ")
 		}
 		if guessedWordArr[i] != value && include(guessedWordArr[i], solutionWordArr) {
 			finalWord += style.
-				Background(lipgloss.Color("#e6d600")).
+				Foreground(lipgloss.Color("#e6d600")).
 				Render(guessedWordArr[i])
+			finalWord += lipgloss.PlaceHorizontal(10, lipgloss.Center, " ")
 		}
 		if !include(guessedWordArr[i], solutionWordArr) {
 			finalWord += style.Render(guessedWordArr[i])
+			// finalWord += lipgloss.PlaceHorizontal(10, lipgloss.Center, " ")
 		}
 	}
-	return finalWord
+	return lipgloss.
+		NewStyle().
+		Padding(1).
+		Border(lipgloss.Border{
+			Top:         "._.:*:",
+			Bottom:      "._.:*:",
+			Left:        "|*",
+			Right:       "|*",
+			TopLeft:     "*",
+			TopRight:    "*",
+			BottomLeft:  "*",
+			BottomRight: "*",
+		}).
+		Render(finalWord)
 }
 
 func include(a string, list []string) bool {
