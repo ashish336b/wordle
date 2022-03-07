@@ -2,7 +2,9 @@ package helper
 
 import (
 	"fmt"
+	"math/rand"
 	"strings"
+	"time"
 
 	"github.com/charmbracelet/lipgloss"
 )
@@ -19,8 +21,8 @@ func Check(a string, b string) string {
 }
 func baseStyle() lipgloss.Style {
 	style := lipgloss.NewStyle().
-		Bold(true).
 		BorderLeft(true).
+		Bold(true).
 		BorderRight(true).
 		BorderForeground(lipgloss.Color("63")).
 		BorderStyle(lipgloss.NormalBorder()).
@@ -28,9 +30,15 @@ func baseStyle() lipgloss.Style {
 		PaddingRight(2)
 	return style
 }
+func GetSolution() string {
+	rand.Seed(time.Now().UnixNano())
+	solutionIndex := rand.Intn(len(Words))
+	solutionWord := strings.ToUpper(Words[solutionIndex])
+	return solutionWord
+}
 func CheckAccuracy(solution string, guessed string) string {
-
 	solutionWordArr := strings.Split(solution, "")
+	fmt.Println(solutionWordArr)
 	guessedWordArr := strings.Split(guessed, "")
 	finalWord := ""
 	for i, value := range solutionWordArr {
@@ -49,7 +57,7 @@ func CheckAccuracy(solution string, guessed string) string {
 		}
 	}
 	return lipgloss.NewStyle().
-		Margin(2).
+		Margin(1).
 		MarginLeft(5).
 		Render(finalWord)
 }

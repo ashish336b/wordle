@@ -3,10 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
-	"math/rand"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/ashish336b/wordle-in-terminal/helper"
 	"github.com/fatih/color"
@@ -17,31 +15,41 @@ func officialWordle(c *cli.Context) error {
 	fmt.Println(helper.CheckAccuracy("hello", "hiiei"))
 	return nil
 }
+
+func isGameOver(round int, solutionWord string, guessWord string) bool {
+	if round == 6 && solutionWord != guessWord {
+		return true
+	}
+	if solutionWord == guessWord {
+		return true
+	}
+	return false
+}
+
 func playGame(c *cli.Context) error {
-	rand.Seed(time.Now().UnixNano())
-	solutionIndex := rand.Intn(len(helper.Words))
-	solutionWord := strings.ToUpper(helper.Words[solutionIndex])
-	solutionWordChars := strings.Split(solutionWord, "")
-	fmt.Println(solutionWordChars)
-	i := 1
+	solutionWord := helper.GetSolution()
+	round := 1
 	for {
 		var guess string
-		fmt.Printf("Enter your guess %d/%d: \t", i, 6)
+		fmt.Printf("Enter your guess %d/%d: ", round, 6)
 		fmt.Scanln(&guess)
 		guess = strings.ToUpper(guess)
-		if guess == solutionWord || i == 6 {
-			if i == 6 {
-				fmt.Println("you lose!")
+		result := helper.CheckAccuracy(solutionWord, guess)
+		if guess == solutionWord {
+			if round == 6 {
+				color.Red("You lose!\n")
+				fmt.Printf("correct word is: %s\n", solutionWord)
 				break
 			}
+			fmt.Println(result)
 			color.Green("You win!")
 			break
 		}
-		i++
-		fmt.Println(guess)
+		fmt.Println(result)
 	}
 	return nil
 }
+
 func main() {
 	err := (&cli.App{
 		Name:   "wordle-go",
