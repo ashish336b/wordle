@@ -46,7 +46,7 @@ func ValidateWord(guess string) (string, bool) {
 	if !include(guess, Words) && len(guess) == 5 {
 		message = "Not in Word List"
 	}
-	if len(guess) < 5 {
+	if len(guess) != 5 {
 		message = "words should be exactly 5"
 	}
 	return message, include(guess, Words) && len(guess) == 5
