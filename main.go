@@ -11,42 +11,42 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func officialWordle(c *cli.Context) error {
-	fmt.Println(helper.CheckAccuracy("hello", "hiiei"))
-	return nil
-}
+var solutionWord = helper.GetSolution()
+var round = 1
 
-func isGameOver(round int, solutionWord string, guessWord string) bool {
-	if round == 6 && solutionWord != guessWord {
-		return true
-	}
-	if solutionWord == guessWord {
-		return true
-	}
-	return false
-}
-
-func playGame(c *cli.Context) error {
-	solutionWord := helper.GetSolution()
-	round := 1
+func play() {
 	for {
 		var guess string
 		fmt.Printf("Enter your guess %d/%d: ", round, 6)
 		fmt.Scanln(&guess)
 		guess = strings.ToUpper(guess)
-		result := helper.CheckAccuracy(solutionWord, guess)
-		if guess == solutionWord {
-			if round == 6 {
-				color.Red("You lose!\n")
-				fmt.Printf("correct word is: %s\n", solutionWord)
-				break
-			}
-			fmt.Println(result)
-			color.Green("You win!")
+		message, isValid := helper.ValidateWord(guess)
+		if !isValid {
+			color.Red(message)
+			play()
+		}
+		hint := helper.CheckAccuracy(solutionWord, guess)
+		if !helper.IsLost(round, solutionWord, guess) {
+			fmt.Println(hint)
+			play()
+
+		}
+		if helper.IsLost(round, solutionWord, guess) {
+			color.Red("You lose!\n")
+			fmt.Printf("correct word is: %s\n", solutionWord)
 			break
 		}
-		fmt.Println(result)
+		round++
 	}
+}
+
+func playRandom(c *cli.Context) error {
+	play()
+	return nil
+}
+
+func officialWordle(c *cli.Context) error {
+	fmt.Println("official wordle")
 	return nil
 }
 
@@ -54,7 +54,7 @@ func main() {
 	err := (&cli.App{
 		Name:   "wordle-go",
 		Usage:  "wordle-in-terminal",
-		Action: playGame,
+		Action: playRandom,
 		Commands: []*cli.Command{
 			{
 				Name:    "play",

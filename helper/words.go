@@ -11,6 +11,11 @@ import (
 
 var Words = []string{"Quick", "Brown", "hello", "arose", "vivid"}
 
+type validate struct {
+	isValidate bool
+	message    string
+}
+
 func Check(a string, b string) string {
 	var str = lipgloss.NewStyle().
 		BorderStyle(lipgloss.NormalBorder()).
@@ -35,6 +40,16 @@ func GetSolution() string {
 	solutionIndex := rand.Intn(len(Words))
 	solutionWord := strings.ToUpper(Words[solutionIndex])
 	return solutionWord
+}
+func ValidateWord(guess string) (string, bool) {
+	message := ""
+	if !include(guess, Words) && len(guess) == 5 {
+		message = "Not in Word List"
+	}
+	if len(guess) < 5 {
+		message = "words should be exactly 5"
+	}
+	return message, include(guess, Words) && len(guess) == 5
 }
 func CheckAccuracy(solution string, guessed string) string {
 	solutionWordArr := strings.Split(solution, "")
@@ -64,7 +79,7 @@ func CheckAccuracy(solution string, guessed string) string {
 
 func include(a string, list []string) bool {
 	for _, b := range list {
-		if b == a {
+		if strings.ToUpper(b) == strings.ToUpper(a) {
 			return true
 		}
 	}
