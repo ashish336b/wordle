@@ -14,7 +14,7 @@ import (
 )
 
 func officialWordle(c *cli.Context) error {
-	fmt.Println(helper.CheckAccuracy("hello", "heaaa"))
+	fmt.Println(helper.CheckAccuracy("hello", "hiiei"))
 	return nil
 }
 func playGame(c *cli.Context) error {
@@ -46,7 +46,7 @@ func main() {
 	err := (&cli.App{
 		Name:   "wordle-go",
 		Usage:  "wordle-in-terminal",
-		Action: officialWordle,
+		Action: playGame,
 		Commands: []*cli.Command{
 			{
 				Name:    "play",

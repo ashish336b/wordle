@@ -17,10 +17,7 @@ func Check(a string, b string) string {
 	fmt.Print(str)
 	return str
 }
-func CheckAccuracy(solution string, guessed string) string {
-	solutionWordArr := strings.Split(solution, "")
-	guessedWordArr := strings.Split(guessed, "")
-	finalWord := ""
+func baseStyle() lipgloss.Style {
 	style := lipgloss.NewStyle().
 		Bold(true).
 		BorderLeft(true).
@@ -29,20 +26,26 @@ func CheckAccuracy(solution string, guessed string) string {
 		BorderStyle(lipgloss.NormalBorder()).
 		PaddingLeft(2).
 		PaddingRight(2)
+	return style
+}
+func CheckAccuracy(solution string, guessed string) string {
+
+	solutionWordArr := strings.Split(solution, "")
+	guessedWordArr := strings.Split(guessed, "")
+	finalWord := ""
 	for i, value := range solutionWordArr {
 		if guessedWordArr[i] == value {
-			finalWord += style.
+			finalWord += baseStyle().
 				Foreground(lipgloss.Color("#14c700")).
-				Render(value)
+				Render(guessedWordArr[i])
 		}
 		if guessedWordArr[i] != value && include(guessedWordArr[i], solutionWordArr) {
-			finalWord += style.
+			finalWord += baseStyle().
 				Foreground(lipgloss.Color("#e6d600")).
 				Render(guessedWordArr[i])
-			finalWord += lipgloss.PlaceHorizontal(10, lipgloss.Center, " ")
 		}
 		if !include(guessedWordArr[i], solutionWordArr) {
-			finalWord += style.Render(guessedWordArr[i])
+			finalWord += baseStyle().Render(guessedWordArr[i])
 		}
 	}
 	return lipgloss.NewStyle().
