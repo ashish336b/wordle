@@ -45,12 +45,13 @@ func play(solutionWord string) {
 }
 
 func playRandom(c *cli.Context) error {
-	solutionWord := helper.RandomSolution()
-	play(solutionWord)
+	helper.ShowInstruction()
+	play(helper.RandomSolution())
 	return nil
 }
 
 func officialWordle(c *cli.Context) error {
+	helper.ShowInstruction()
 	play(helper.OfficialSolution())
 	return nil
 }
