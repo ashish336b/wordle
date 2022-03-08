@@ -8,11 +8,20 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func GetSolution() string {
+func RandomSolution() string {
 	rand.Seed(time.Now().UnixNano())
 	solutionIndex := rand.Intn(len(Words))
 	solutionWord := strings.ToUpper(Words[solutionIndex])
 	return solutionWord
+}
+func OfficialSolution() string {
+	// Official intital date for wordle is 2021/06/19
+	// so calculate no of days from initial date to today date
+	// modulus of total days to number of array is index of official word.
+	firstWordleDay := time.Date(2021, time.Month(6), 19, 0, 0, 0, 0, time.UTC) // 2021/06/19
+	day := int(time.Now().Sub(firstWordleDay).Hours() / 24)                    // 2021/06/19 minus today_date
+	officialWord := Words[day%len(Words)]
+	return strings.ToUpper(officialWord)
 }
 func ValidateWord(guess string) (string, bool) {
 	message := ""

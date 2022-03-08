@@ -11,10 +11,9 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var solutionWord = helper.GetSolution()
 var round = 1
 
-func play() {
+func play(solutionWord string) {
 	for {
 		var guess string
 		fmt.Printf("Enter your guess %d/%d: ", round, 6)
@@ -23,7 +22,7 @@ func play() {
 		message, isValid := helper.ValidateWord(guess)
 		if !isValid {
 			color.Red(message)
-			play()
+			play(solutionWord)
 			break
 		}
 		hint := helper.CheckAccuracy(solutionWord, guess)
@@ -40,7 +39,7 @@ func play() {
 		if helper.InProgress(round, solutionWord, guess) {
 			fmt.Println(hint)
 			round++
-			play()
+			play(solutionWord)
 			break
 		}
 
@@ -48,12 +47,13 @@ func play() {
 }
 
 func playRandom(c *cli.Context) error {
-	play()
+	solutionWord := helper.RandomSolution()
+	play(solutionWord)
 	return nil
 }
 
 func officialWordle(c *cli.Context) error {
-	fmt.Println("official wordle")
+	play(helper.OfficialSolution())
 	return nil
 }
 
