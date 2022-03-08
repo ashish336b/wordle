@@ -27,7 +27,16 @@ func play() {
 			break
 		}
 		hint := helper.CheckAccuracy(solutionWord, guess)
-		fmt.Println(helper.InProgress(round, solutionWord, guess))
+		if helper.WinCondition(round, solutionWord, guess) {
+			fmt.Println(hint)
+			color.Green("you Win")
+			break
+		}
+		if helper.LoseCondition(round, solutionWord, guess) {
+			color.Red("you lost!")
+			fmt.Printf("the word you are looking for is %s \n", helper.GetRightAnswer(solutionWord))
+			break
+		}
 		if helper.InProgress(round, solutionWord, guess) {
 			fmt.Println(hint)
 			round++
@@ -35,15 +44,6 @@ func play() {
 			break
 		}
 
-		if helper.IsWon(round, solutionWord, guess) {
-			fmt.Println(hint)
-			color.Green("you Win")
-			break
-		}
-		if helper.IsLost(round, solutionWord, guess) {
-			color.Red("you lost!")
-			break
-		}
 	}
 }
 
