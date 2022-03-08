@@ -8,6 +8,8 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
+var MAX_CHANCES = 6
+
 func RandomSolution() string {
 	rand.Seed(time.Now().UnixNano())
 	solutionIndex := rand.Intn(len(Words))
@@ -63,16 +65,15 @@ func GetRightAnswer(solution string) string {
 
 // todo: remove this logic
 func InProgress(round int, solutionWord string, guessWord string) bool {
-	return round <= 6 && solutionWord != guessWord
+	return round <= MAX_CHANCES && solutionWord != guessWord
 }
 
 func WinCondition(round int, solutionWord string, guessWord string) bool {
-	return round <= 6 && solutionWord == guessWord
+	return round <= MAX_CHANCES && solutionWord == guessWord
 }
 
 func LoseCondition(round int, solutionWord string, guessWord string) bool {
-	// fmt.Print(round == 6 && solutionWord != guessWord) //remove
-	return round == 6 && solutionWord != guessWord
+	return round == MAX_CHANCES && solutionWord != guessWord
 }
 func include(a string, list []string) bool {
 	for _, b := range list {
