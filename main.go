@@ -60,13 +60,13 @@ func main() {
 	err := (&cli.App{
 		Name:   "wordle-go",
 		Usage:  "wordle-in-terminal",
-		Action: playRandom,
+		Action: officialWordle,
 		Commands: []*cli.Command{
 			{
-				Name:    "play",
+				Name:    "random",
 				Aliases: []string{"p"},
 				Usage:   "play the game",
-				Action:  officialWordle,
+				Action:  playRandom,
 			},
 		},
 	}).Run(os.Args)
