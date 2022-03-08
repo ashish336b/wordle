@@ -11,11 +11,6 @@ import (
 
 var Words = []string{"Quick", "Brown", "hello", "arose", "vivid"}
 
-type validate struct {
-	isValidate bool
-	message    string
-}
-
 func Check(a string, b string) string {
 	var str = lipgloss.NewStyle().
 		BorderStyle(lipgloss.NormalBorder()).
