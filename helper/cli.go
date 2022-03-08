@@ -32,11 +32,11 @@ func coloredString(name string) lipgloss.Style {
 }
 
 func instructionStyle() lipgloss.Style {
-	return lipgloss.NewStyle().Margin(1).MarginLeft(3).Foreground(lipgloss.Color("#57f1ff"))
+	return lipgloss.NewStyle().Margin(1).Bold(true).MarginLeft(3).Foreground(lipgloss.Color("#57f1ff"))
 }
 
 // TODO: optimize this function
-func Example(s string, b string, c bool) string {
+func example(s string, b string, c bool) string {
 	ex1 := strings.Split(strings.ToUpper(s), "")
 	str1 := ""
 	for _, val := range ex1 {
@@ -63,6 +63,6 @@ func ShowInstruction() {
 	fmt.Println(instructionStyle().
 		UnsetMarginTop().
 		Foreground(lipgloss.Color("#fff")).Render("Example!"))
-	fmt.Println(Example("AROSE", "A", true) + "\t" + "\"A\" is in the word and in the correct spot.\n")
-	fmt.Println(Example("PILLS", "I", false) + "\t" + "\"A\" is in the word and in the wrong spot.\n")
+	fmt.Println(example("AROSE", "A", true) + "\t" + "\"A\" is in the word and in the correct spot.\n")
+	fmt.Println(example("PILLS", "I", false) + "\t" + "\"I\" is in the word and in the wrong spot.\n")
 }
