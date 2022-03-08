@@ -2,8 +2,7 @@ name: goreleaser
 
 on:
   push:
-    branch:
-      - main
+    branchs: [main]
     tags:
       - "*"
 
