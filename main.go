@@ -57,6 +57,7 @@ func officialWordle(c *cli.Context) error {
 }
 
 func playInfinity(c *cli.Context) error {
+	helper.MAX_CHANCES = 50
 	helper.ShowInstruction()
 	play(helper.RandomSolution())
 	return nil
