@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ashish336b/wordle-in-terminal/helper"
+	"github.com/ashish336b/wordle-cli/helper"
 	"github.com/fatih/color"
 	"github.com/urfave/cli/v2"
 )
