@@ -36,12 +36,10 @@ func play(solutionWord string) {
 			fmt.Printf("the word you are looking for is %s \n", helper.GetRightAnswer(solutionWord))
 			break
 		}
-		if helper.InProgress(round, solutionWord, guess) {
-			fmt.Println(hint)
-			round++
-			play(solutionWord)
-			break
-		}
+		fmt.Println(hint)
+		round++
+		play(solutionWord)
+		break
 
 	}
 }

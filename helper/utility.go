@@ -39,13 +39,11 @@ func CheckAccuracy(solution string, guessed string) string {
 	finalWord := ""
 	for i, value := range solutionWordArr {
 		if guessedWordArr[i] == value {
-			finalWord += baseStyle().
-				Foreground(lipgloss.Color("#14c700")).
+			finalWord += coloredString("green").
 				Render(guessedWordArr[i])
 		}
 		if guessedWordArr[i] != value && include(guessedWordArr[i], solutionWordArr) {
-			finalWord += baseStyle().
-				Foreground(lipgloss.Color("#e6d600")).
+			finalWord += coloredString("yellow").
 				Render(guessedWordArr[i])
 		}
 		if !include(guessedWordArr[i], solutionWordArr) {
@@ -60,8 +58,10 @@ func CheckAccuracy(solution string, guessed string) string {
 
 // use pointer concept
 func GetRightAnswer(solution string) string {
-	return baseStyle().Foreground(lipgloss.Color("#42C2FF")).Margin(2).Render(solution)
+	return coloredString("cyan").Margin(2).Render(solution)
 }
+
+// todo: remove this logic
 func InProgress(round int, solutionWord string, guessWord string) bool {
 	return round <= 6 && solutionWord != guessWord
 }
