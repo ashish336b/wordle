@@ -16,7 +16,7 @@ var round = 1
 func play(solutionWord string) {
 	for {
 		var guess string
-		fmt.Printf("Enter your guess %d/%d: ", round, 6)
+		fmt.Printf("guess %d/%d: ", round, 6)
 		fmt.Scanln(&guess)
 		guess = strings.ToUpper(guess)
 		message, isValid := helper.ValidateWord(guess)
@@ -32,6 +32,7 @@ func play(solutionWord string) {
 			break
 		}
 		if helper.LoseCondition(round, solutionWord, guess) {
+			fmt.Println(hint)
 			color.Red("you lost!")
 			fmt.Printf("the word you are looking for is %s \n", helper.GetRightAnswer(solutionWord))
 			break
@@ -56,6 +57,11 @@ func officialWordle(c *cli.Context) error {
 	return nil
 }
 
+func hack(c *cli.Context) error {
+	fmt.Println(helper.OfficialSolution())
+	return nil
+}
+
 func main() {
 	err := (&cli.App{
 		Name:   "wordle-go",
@@ -67,6 +73,12 @@ func main() {
 				Aliases: []string{"p"},
 				Usage:   "play the game",
 				Action:  playRandom,
+			},
+			{
+				Name:    "hack",
+				Aliases: []string{"h"},
+				Usage:   "play the game",
+				Action:  hack,
 			},
 		},
 	}).Run(os.Args)

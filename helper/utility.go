@@ -25,13 +25,13 @@ func OfficialSolution() string {
 }
 func ValidateWord(guess string) (string, bool) {
 	message := ""
-	if !include(guess, Words) && len(guess) == 5 {
+	if !include(guess, Words) && !include(guess, ValidWord) && len(guess) == 5 {
 		message = "Not in Word List"
 	}
 	if len(guess) != 5 {
 		message = "words should be exactly 5"
 	}
-	return message, include(guess, Words) && len(guess) == 5
+	return message, (include(guess, Words) || include(guess, ValidWord)) && len(guess) == 5
 }
 func CheckAccuracy(solution string, guessed string) string {
 	solutionWordArr := strings.Split(solution, "")
