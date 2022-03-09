@@ -14,4 +14,5 @@ wordle
 ```bash
 wordle random
 ```
-
+# PREVIEW
+![Image](preview/preview.png)
