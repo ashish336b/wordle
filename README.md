@@ -1,15 +1,17 @@
 # wordle-cli
 Play wordle in your terminal
-
-# install golang and clone this repo
+# Installation
+* Download .deb file from the link below and install it.
 ## usages
+Download game from [Download Link](http://google.com)
+After downloading open your terminal and then run command with correct argument ```wordle```
+
 * To play official wordle game
 ```bash 
-go run .  
+wordle 
 ```
 * To play random wordle game
 ```bash
-go run . random
+wordle random
 ```
-* Download binaries by going to release page to play without any setup of golang compiler.
 
