@@ -33,22 +33,25 @@ func ValidateWord(guess string) (string, bool) {
 	}
 	return message, (include(guess, Words) || include(guess, ValidWord)) && len(guess) == 5
 }
-func CheckAccuracy(solution string, guessed string) string {
+func CheckAccuracy(solution string, guessed string) (string, string) {
+
 	solutionWordArr := strings.Split(solution, "")
 	guessedWordArr := strings.Split(guessed, "")
 	finalWord := ""
 	for i, value := range solutionWordArr {
+		alphaIndex := getAlphabetIndex(guessedWordArr[i])
 		if !include(guessedWordArr[i], solutionWordArr) {
 			finalWord += baseStyle().Render(guessedWordArr[i])
 		}
 		if guessedWordArr[i] == value {
+			alphabets[alphaIndex] = PaintGreen(guessedWordArr[i])
 			solutionWordArr[i] = "*"
 			finalWord += coloredString("green").
 				Render(guessedWordArr[i])
 		}
 		if guessedWordArr[i] != value && include(guessedWordArr[i], solutionWordArr) {
-			index := index(guessedWordArr[i], solutionWordArr)
-			solutionWordArr[index] = "*"
+			alphabets[alphaIndex] = PaintYellow(guessedWordArr[i])
+			solutionWordArr[index(guessedWordArr[i], solutionWordArr)] = "*"
 			finalWord += coloredString("yellow").
 				Render(guessedWordArr[i])
 		}
@@ -56,7 +59,7 @@ func CheckAccuracy(solution string, guessed string) string {
 	return lipgloss.NewStyle().
 		Margin(1).
 		MarginLeft(5).
-		Render(finalWord)
+		Render(finalWord), GetAlphabetKeyboard(alphabets)
 }
 
 // use pointer concept
@@ -93,4 +96,10 @@ func index(a string, arr []string) int {
 		}
 	}
 	return -1
+}
+
+func getAlphabetIndex(alphabet string) int {
+	alphabets := []string{"A", "B", "C", "D", "E", "F", "G", "H",
+		"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+	return index(strings.ToUpper(alphabet), alphabets)
 }

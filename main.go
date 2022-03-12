@@ -25,23 +25,21 @@ func play(solutionWord string) {
 			play(solutionWord)
 			break
 		}
-		hint := helper.CheckAccuracy(solutionWord, guess)
+		hint, keyboard := helper.CheckAccuracy(solutionWord, guess)
+		fmt.Println(hint)
+		fmt.Println(keyboard)
 		if helper.WinCondition(round, solutionWord, guess) {
-			fmt.Println(hint)
 			color.Green("you Win")
 			break
 		}
 		if helper.LoseCondition(round, solutionWord, guess) {
-			fmt.Println(hint)
 			color.Red("you lost!")
 			fmt.Printf("the word you are looking for is %s \n", helper.GetRightAnswer(solutionWord))
 			break
 		}
-		fmt.Println(hint)
 		round++
 		play(solutionWord)
 		break
-
 	}
 }
 
