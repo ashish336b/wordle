@@ -25,7 +25,8 @@ func play(solutionWord string) {
 			play(solutionWord)
 			break
 		}
-		hint, keyboard := helper.CheckAccuracy(solutionWord, guess)
+		hint := helper.CheckAccuracy(solutionWord, guess)
+		keyboard := helper.GetAlphabetKeyboard(helper.Alphabets)
 		fmt.Println(hint)
 		fmt.Println(keyboard)
 		if helper.WinCondition(round, solutionWord, guess) {

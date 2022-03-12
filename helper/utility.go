@@ -33,25 +33,23 @@ func ValidateWord(guess string) (string, bool) {
 	}
 	return message, (include(guess, Words) || include(guess, ValidWord)) && len(guess) == 5
 }
-func CheckAccuracy(solution string, guessed string) (string, string) {
-
+func CheckAccuracy(solution string, guessed string) string {
 	solutionWordArr := strings.Split(solution, "")
 	guessedWordArr := strings.Split(guessed, "")
 	finalWord := ""
 	for i, value := range solutionWordArr {
-		alphaIndex := getAlphabetIndex(guessedWordArr[i])
 		if !include(guessedWordArr[i], solutionWordArr) {
-			alphabets[alphaIndex] = PaintGrey(guessedWordArr[i])
+			addToGrayWordList(guessedWordArr[i])
 			finalWord += coloredString("grey").Render(guessedWordArr[i])
 		}
 		if guessedWordArr[i] == value {
-			alphabets[alphaIndex] = PaintGreen(guessedWordArr[i])
+			addToGreenWordList(guessedWordArr[i])
 			solutionWordArr[i] = "*"
 			finalWord += coloredString("green").
 				Render(guessedWordArr[i])
 		}
 		if guessedWordArr[i] != value && include(guessedWordArr[i], solutionWordArr) {
-			alphabets[alphaIndex] = PaintYellow(guessedWordArr[i])
+			addToYellowWordList(guessedWordArr[i])
 			solutionWordArr[index(guessedWordArr[i], solutionWordArr)] = "*"
 			finalWord += coloredString("yellow").
 				Render(guessedWordArr[i])
@@ -60,26 +58,39 @@ func CheckAccuracy(solution string, guessed string) (string, string) {
 	return lipgloss.NewStyle().
 		Margin(1).
 		MarginLeft(5).
-		Render(finalWord), GetAlphabetKeyboard(alphabets)
+		Render(finalWord)
 }
-
-// use pointer concept
 func GetRightAnswer(solution string) string {
 	return coloredString("cyan").Margin(2).Render(solution)
 }
-
-// todo: remove this logic
-func InProgress(round int, solutionWord string, guessWord string) bool {
-	return round <= 6 && solutionWord != guessWord
-}
-
 func WinCondition(round int, solutionWord string, guessWord string) bool {
 	return round <= 6 && solutionWord == guessWord
 }
-
 func LoseCondition(round int, solutionWord string, guessWord string) bool {
-	// fmt.Print(round == 6 && solutionWord != guessWord) //remove
 	return round == 6 && solutionWord != guessWord
+}
+func addToGreenWordList(s string) {
+	// if alphabet is present in yellow word remove from yello word list
+	if index(s, YellowWord) != -1 {
+		YellowWord = RemoveIndex(index(s, YellowWord), YellowWord)
+	}
+	// if alphabet is not already persent in greenword list add to greenword list
+	if index(s, GreenWord) == -1 {
+		GreenWord = append(GreenWord, s)
+	}
+}
+func addToYellowWordList(s string) {
+	// already green word cannot be yellow again in next round
+	// green word ko list ma xaena banee matra add garnee
+	if index(s, GreenWord) == -1 {
+		YellowWord = append(YellowWord, s)
+	}
+}
+func addToGrayWordList(s string) {
+	// word should not be in green and yello word list
+	if !(index(s, GreenWord) != -1 || index(s, YellowWord) != -1) {
+		GrayWord = append(GrayWord, s)
+	}
 }
 func include(a string, list []string) bool {
 	for _, b := range list {
@@ -89,7 +100,6 @@ func include(a string, list []string) bool {
 	}
 	return false
 }
-
 func index(a string, arr []string) int {
 	for i, value := range arr {
 		if value == a {
@@ -98,9 +108,6 @@ func index(a string, arr []string) int {
 	}
 	return -1
 }
-
-func getAlphabetIndex(alphabet string) int {
-	alphabets := []string{"A", "B", "C", "D", "E", "F", "G", "H",
-		"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
-	return index(strings.ToUpper(alphabet), alphabets)
+func RemoveIndex(index int, s []string) []string {
+	return append(s[:index], s[index+1:]...)
 }

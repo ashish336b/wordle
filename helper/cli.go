@@ -33,24 +33,6 @@ func coloredString(name string) lipgloss.Style {
 	return baseStyle().BorderForeground(lipgloss.Color(name)).Foreground(lipgloss.Color(name))
 }
 
-func GetAlphabetKeyboard(name []string) string {
-	finalString := ""
-	for i, val := range name {
-		i = i + 1
-		finalString += lipgloss.NewStyle().PaddingLeft(2).BorderLeft(true).
-			Bold(true).
-			// BorderRight(true).
-			// BorderForeground(lipgloss.Color("#e32289")).
-			// BorderStyle(lipgloss.NormalBorder()).PaddingRight(5).
-			Render(val)
-		if i%7 == 0 {
-			finalString += "\n"
-		}
-
-	}
-	return lipgloss.NewStyle().MarginLeft(5).PaddingBottom(1).Render(finalString)
-}
-
 func PaintGreen(s string) string {
 	return lipgloss.NewStyle().Foreground(lipgloss.Color("#14c700")).Render(s)
 }
