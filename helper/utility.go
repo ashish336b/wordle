@@ -38,16 +38,19 @@ func CheckAccuracy(solution string, guessed string) string {
 	guessedWordArr := strings.Split(guessed, "")
 	finalWord := ""
 	for i, value := range solutionWordArr {
+		if !include(guessedWordArr[i], solutionWordArr) {
+			finalWord += baseStyle().Render(guessedWordArr[i])
+		}
 		if guessedWordArr[i] == value {
+			solutionWordArr[i] = "*"
 			finalWord += coloredString("green").
 				Render(guessedWordArr[i])
 		}
 		if guessedWordArr[i] != value && include(guessedWordArr[i], solutionWordArr) {
+			index := index(guessedWordArr[i], solutionWordArr)
+			solutionWordArr[index] = "*"
 			finalWord += coloredString("yellow").
 				Render(guessedWordArr[i])
-		}
-		if !include(guessedWordArr[i], solutionWordArr) {
-			finalWord += baseStyle().Render(guessedWordArr[i])
 		}
 	}
 	return lipgloss.NewStyle().
@@ -81,4 +84,13 @@ func include(a string, list []string) bool {
 		}
 	}
 	return false
+}
+
+func index(a string, arr []string) int {
+	for i, value := range arr {
+		if value == a {
+			return i
+		}
+	}
+	return -1
 }
