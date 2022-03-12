@@ -41,7 +41,8 @@ func CheckAccuracy(solution string, guessed string) (string, string) {
 	for i, value := range solutionWordArr {
 		alphaIndex := getAlphabetIndex(guessedWordArr[i])
 		if !include(guessedWordArr[i], solutionWordArr) {
-			finalWord += baseStyle().Render(guessedWordArr[i])
+			alphabets[alphaIndex] = PaintGrey(guessedWordArr[i])
+			finalWord += coloredString("grey").Render(guessedWordArr[i])
 		}
 		if guessedWordArr[i] == value {
 			alphabets[alphaIndex] = PaintGreen(guessedWordArr[i])

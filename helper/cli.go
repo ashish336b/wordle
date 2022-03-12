@@ -25,6 +25,8 @@ func coloredString(name string) lipgloss.Style {
 		name = "#14c700"
 	case "yellow":
 		name = "#e6d600"
+	case "grey":
+		name = "#808080"
 	case "cyan":
 		name = "#42C2FF"
 	}
@@ -55,6 +57,10 @@ func PaintGreen(s string) string {
 
 func PaintYellow(s string) string {
 	return lipgloss.NewStyle().Foreground(lipgloss.Color("#e6d600")).Render(s)
+}
+
+func PaintGrey(s string) string {
+	return lipgloss.NewStyle().Foreground(lipgloss.Color("#808080")).Render(s)
 }
 
 func instructionStyle() lipgloss.Style {
