@@ -5,20 +5,20 @@
 class WordleCli < Formula
   desc "Play wordle in cli"
   homepage "https://github.com/ashish336b/wordle-cli"
-  version "0.0.12"
+  version "0.0.13"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/ashish336b/wordle-cli/releases/download/v0.0.12/wordle-cli_0.0.12_Darwin_arm64.tar.gz"
-      sha256 "c9499dba47dd69837bc299bdb5953c6621de875ec70ef644a66b4afa96dac36c"
+      url "https://github.com/ashish336b/wordle-cli/releases/download/v0.0.13/wordle-cli_0.0.13_Darwin_arm64.tar.gz"
+      sha256 "bd548e9f88b1d39e95ff2c780a453c52325ea9f7f012075f2fea1a4b111bbb97"
 
       def install
         bin.install "wordle-cli"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/ashish336b/wordle-cli/releases/download/v0.0.12/wordle-cli_0.0.12_Darwin_x86_64.tar.gz"
-      sha256 "583a46d35c844ee646c2134b9ff80bbeb477f026214722181289a037ad59a375"
+      url "https://github.com/ashish336b/wordle-cli/releases/download/v0.0.13/wordle-cli_0.0.13_Darwin_x86_64.tar.gz"
+      sha256 "a5dd5e4884bbbff7fc541ff23ac0b4114acd87662b51386da9e9274b60ebb9de"
 
       def install
         bin.install "wordle-cli"
@@ -28,16 +28,16 @@ class WordleCli < Formula
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/ashish336b/wordle-cli/releases/download/v0.0.12/wordle-cli_0.0.12_Linux_x86_64.tar.gz"
-      sha256 "2f406881fb3fd1b3c8b37e42e86068f491087ff63c003acd4f4a50102749d92c"
+      url "https://github.com/ashish336b/wordle-cli/releases/download/v0.0.13/wordle-cli_0.0.13_Linux_x86_64.tar.gz"
+      sha256 "7f1381d3158f951f3791e8bc3b174ba28410656dc83010ad720490bbabdbef56"
 
       def install
         bin.install "wordle-cli"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/ashish336b/wordle-cli/releases/download/v0.0.12/wordle-cli_0.0.12_Linux_arm64.tar.gz"
-      sha256 "433cd4fc80e7e9883e2ffe5cca7e0f23aa0056ca7576e7281bd322461262e6d9"
+      url "https://github.com/ashish336b/wordle-cli/releases/download/v0.0.13/wordle-cli_0.0.13_Linux_arm64.tar.gz"
+      sha256 "bf0a0d2f8306f540d1876c21394f0ab027681539c69c83a25c952104a2fdd6d7"
 
       def install
         bin.install "wordle-cli"
