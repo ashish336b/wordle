@@ -2,9 +2,10 @@ name: goreleaser
 
 on:
   push:
-    branchs: [main]
+    branches:
+      - 'main'
     tags:
-      - "*"
+      - "v*"
 
 permissions:
   contents: write
@@ -29,6 +30,7 @@ jobs:
       -
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
+        if: success() && startsWith(github.ref, 'refs/tags/')
         with:
           # either 'goreleaser' (default) or 'goreleaser-pro'
           distribution: goreleaser
