@@ -39,7 +39,7 @@ nfpms:
   - rpm
   - apk
 brews:
-  - homepage: "https://github.com/ashish336b/wordle-cli"
+  - homepage: "https://github.com/ashish336b/wordle"
     description: "Play wordle in cli"
     folder: Formula
     commit_author:
@@ -47,4 +47,4 @@ brews:
       email: ashish336b@gmail.com
     tap:
       owner: ashish336b
-      name: wordle-cli
+      name: wordle
