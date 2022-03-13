@@ -47,4 +47,4 @@ brews:
       email: ashish336b@gmail.com
     tap:
       owner: ashish336b
-      name: ashish336b/wordle
+      name: wordle-cli
