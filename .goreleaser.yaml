@@ -29,3 +29,12 @@ changelog:
       - '^docs:'
       - '^test:'
       - '^preview:'
+nfpms:
+- maintainer: Aashish Bhandari <ashish336b@gmail.com>
+  description: wordle cli.
+  homepage: https://github.com/ashish336b
+  license: MIT
+  formats:
+  - deb
+  - rpm
+  - apk
