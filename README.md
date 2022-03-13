@@ -8,7 +8,7 @@ Play wordle in your terminal
 ```bash
 brew install ashish336b/wordle/wordle
 ```
-## USAGE
+# USAGE
 * To play official wordle game
 ```bash 
 wordle 
