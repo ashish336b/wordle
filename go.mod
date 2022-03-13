@@ -1,4 +1,4 @@
-module github.com/ashish336b/wordle-cli
+module github.com/ashish336b/wordle
 
 go 1.17
 
