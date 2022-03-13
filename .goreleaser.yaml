@@ -39,7 +39,7 @@ nfpms:
   - rpm
   - apk
 brews:
-  - homepage: "https://github.com/ashish336b/wordle"
+  - homepage: "https://github.com/ashish336b/homebrew-wordle"
     description: "Play wordle in cli"
     folder: Formula
     commit_author:
